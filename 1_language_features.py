@@ -2,6 +2,8 @@ import os
 import hashlib
 import io
 from rich.console import Console
+
+from helpers import create_source_output_table, get_function_source
 console = Console()
 print = console.print
 
@@ -130,27 +132,13 @@ def verbose_truthy_example():
 
 
 def main():
-    import inspect
-    from rich.table import Table
-    from rich.syntax import Syntax
-    from rich.text import Text
     examples = [string_formatting, with_statement, list_iterate_examples, dict_iterate_examples, truthiness_examples, verbose_truthy_example]
     for example in examples:
-        with console.capture() as capture:
-            example()
-        output = capture.get()
+        console.clear()
+        print(create_source_output_table(example, console))
 
-        source = inspect.getsource(example)
-        source = os.linesep.join([line[4:] for line in source.split(os.linesep)[1:]])
-
-        table = Table(title=example.__name__.replace("_", " "))
-        table.add_column("Source")
-        table.add_column("Output")
-        table.add_row(Syntax(source, lexer='python'), Text.from_ansi(output))
-
-        print(table)
-
-        if example != examples[-1]:
+        is_not_last_item = example != examples[-1]
+        if is_not_last_item:
             input("Press Enter to continue to the next example...")
 
 

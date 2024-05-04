@@ -1,7 +1,11 @@
 import random
 from rich import print
 from rich.tree import Tree
-import inspect
+from rich.console import Console
+from helpers import create_source_output_table
+
+console = Console()
+print = console.print
 
 def add_standard_environment(branch: Tree, version: str):
     version = ".".join(version.split(".")[:2])
@@ -23,7 +27,7 @@ def python_standard_environment():
     tree = Tree("standard python environment")
     add_standard_environment(tree, "3.9.5")
 
-    return tree
+    print(tree)
 
 def pyenv_version_management():
     tree = Tree("pyenv version management")
@@ -37,14 +41,14 @@ def pyenv_version_management():
     global_version = global_versions.add("3.9.5")
     add_standard_environment(global_version, "3.9.5")
 
-    return tree
+    print(tree)
 
 def pipenv_virtualenv():
     tree = Tree("pipenv virtualenv")
     virtualenv = tree.add("virtualenv")
     add_standard_environment(virtualenv, "3.9.5")
 
-    return tree
+    print(tree)
 
 
 def pyenv_pipenv_version_management():
@@ -68,23 +72,15 @@ def pyenv_pipenv_version_management():
         version_tree = project_tree.add(version)
         add_standard_environment(version_tree, version)
 
-    return tree
+    print(tree)
 
 
 if __name__ == "__main__":
-    from rich.panel import Panel
-    from rich.table import Table
-    from rich.syntax import Syntax
-    from rich.color import ANSI_COLOR_NAMES
     examples = [python_standard_environment, pyenv_version_management, pipenv_virtualenv, pyenv_pipenv_version_management]
     for example in examples:
-        lines = Syntax(inspect.getsource(example), lexer='python')
-        print("\n")
-        table = Table(title=example.__name__.replace("_", " "))
-        table.add_column("Source")
-        table.add_column("Output")
-        table.add_row(lines, Panel(example(), title=example.__name__.replace("_", " "), border_style=random.choice([*ANSI_COLOR_NAMES.keys()])))
-        #print(Panel(example(), title=example.__name__.replace("_", " "), border_style=random.choice([*ANSI_COLOR_NAMES.keys()])))
-        print(table)
-        print("\n")
-        input("Press Enter to continue...")
+        console.clear()
+        print(create_source_output_table(example, console))
+
+        is_not_last_item = example != examples[-1]
+        if is_not_last_item:
+            input("Press Enter to continue to the next example...")

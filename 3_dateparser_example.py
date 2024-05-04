@@ -1,6 +1,7 @@
-from inspect import getsource
 
 from rich.console import Console
+
+from helpers import create_source_output_table
 console = Console()
 def print(*args, **kwargs):
     console.print(*args, **kwargs)
@@ -27,23 +28,7 @@ def dateparser_example():
 
 
 def main():
-    import os
-    from rich.table import Table
-    from rich.syntax import Syntax
-    from rich.text import Text
-    lines = getsource(dateparser_example)
-    lines = os.linesep.join([line[4:] for line in lines.split(os.linesep)[1:]])
-    # print(lines)
-    with console.capture() as capture:
-        dateparser_example()
-    output = capture.get()
-    # add 5 newlines at the beginning
-    output = '\n' * 3 + output
-    table = Table()
-    table.add_column("Source")
-    table.add_column("Output")
-    table.add_row(Syntax(lines, lexer='python', line_numbers=True), Text.from_ansi(output))
-    print(table)
+    create_source_output_table(dateparser_example, console)
 
 
 if __name__ == '__main__':

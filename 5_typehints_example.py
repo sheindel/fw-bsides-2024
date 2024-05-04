@@ -1,9 +1,6 @@
 from rich.console import Console
-from rich.text import Text
-from rich.syntax import Syntax
-from rich.table import Table
-import os
-from inspect import getsource
+
+from helpers import create_source_output_table
 
 console = Console()
 print = console.print
@@ -69,24 +66,17 @@ def ex2():
 
 
 def main():
-    examples = [ex1, ex2]
+    examples = [
+        ex1, 
+        # ex2
+    ]
     for example in examples:
         console.clear()
-        lines = getsource(example)
-        # remove the first line
-        # dedent all other lines by 4 spaces
-        lines = os.linesep.join([line[4:] for line in lines.split(os.linesep)[1:]])
-        table = Table(title=example.__name__.replace("_", " "))
-        table.add_column("Source")
-        output = table.add_column("Output")
-        with console.capture() as capture:
-            example()
-        output = capture.get()
-        table.add_row(Syntax(lines, lexer='python'), Text.from_ansi(output))
-        console.print(table)
-        input("Press Enter to continue to the next example...")
-    ex1()
-    ex2()
+        print(create_source_output_table(example, console))
+
+        is_not_last_item = example != examples[-1]
+        if is_not_last_item:
+            input("Press Enter to continue to the next example...")
 
 
 if __name__ == '__main__':

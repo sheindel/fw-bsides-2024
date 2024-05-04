@@ -43,8 +43,8 @@ def typer_example():
 
 def main():
     #typer_example()
-    argprase_square()
-    return
+    # argprase_square()
+    # return
 
 
     import os

@@ -1,8 +1,6 @@
 from rich.console import Console
-from inspect import getsource
-from rich.table import Table
-from rich.syntax import Syntax
-from rich.text import Text
+
+from helpers import create_source_output_table
 
 console = Console()
 print = console.print
@@ -51,25 +49,13 @@ def glob_example():
     print(glob.glob(f"*{search}*.py"))
 
 def main():
-    import os
     examples = [path_examples, linesep_examples, glob_example, random_examples]
     for example in examples:
         console.clear()
-        source = getsource(example)
-        # remove the first line
-        # dedent all other lines by 4 spaces
-        source = os.linesep.join([line[4:] for line in source.split(os.linesep)[1:]])
+        print(create_source_output_table(example, console))
 
-        table = Table(title=example.__name__.replace("_", " "))
-        table.add_column("Source")
-        output = table.add_column("Output")
-        with console.capture() as capture:
-            example()
-        output = capture.get()
-        table.add_row(Syntax(source, lexer='python'), Text.from_ansi(output))
-        console.print(table)
-        # if not last item, wait for next
-        if example != examples[-1]:
+        is_not_last_item = example != examples[-1]
+        if is_not_last_item:
             input("Press Enter to continue to the next example...")
 
 
