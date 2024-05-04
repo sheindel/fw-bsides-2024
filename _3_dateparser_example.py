@@ -1,7 +1,7 @@
 
 from rich.console import Console
-
 from helpers import create_source_output_table
+
 console = Console()
 def print(*args, **kwargs):
     console.print(*args, **kwargs)
@@ -27,8 +27,15 @@ def dateparser_example():
     parse_test('+1 year', settings={'PREFER_DATES_FROM': 'future'})
 
 
+examples = [dateparser_example]
 def main():
-    create_source_output_table(dateparser_example, console)
+    for example in examples:
+        console.clear()
+        print(create_source_output_table(example, console))
+
+        is_not_last_item = example != examples[-1]
+        if is_not_last_item:
+            input("Press Enter to continue to the next example...")
 
 
 if __name__ == '__main__':

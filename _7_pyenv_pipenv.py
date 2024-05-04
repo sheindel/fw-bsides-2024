@@ -75,8 +75,13 @@ def pyenv_pipenv_version_management():
     print(tree)
 
 
+examples = [
+    python_standard_environment, 
+    pyenv_version_management, 
+    pipenv_virtualenv, 
+    pyenv_pipenv_version_management
+]
 if __name__ == "__main__":
-    examples = [python_standard_environment, pyenv_version_management, pipenv_virtualenv, pyenv_pipenv_version_management]
     for example in examples:
         console.clear()
         print(create_source_output_table(example, console))

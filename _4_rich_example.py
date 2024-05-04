@@ -85,20 +85,14 @@ def example_traceback():
     except Exception as e:
         console.print_exception(show_locals=True)
 
+examples = [
+    example_simple_console, 
+    example_rich_advanced_table, 
+    example_inspect_basic, 
+    example_inspect_methods, 
+    example_traceback
+]
 def main():
-    import inspect
-    from rich.table import Table
-    from rich.text import Text
-    from rich.syntax import Syntax
-    import os
-    examples = [
-        example_simple_console, 
-        example_rich_advanced_table, 
-        example_inspect_basic, 
-        example_inspect_methods, 
-        # example_inspect_all, 
-        example_traceback
-    ]
     for example in examples:
         console.clear()
         print(create_source_output_table(example, console))

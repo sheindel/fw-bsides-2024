@@ -40,12 +40,12 @@ def with_statement():
         return hash_md5.hexdigest()
     
     def open_close():
-        file = open('1_language_features.py', 'rb')
+        file = open('_1_language_features.py', 'rb')
         print(calculate_md5(file))
         file.close()
     
     def with_close_example():
-        with open('1_language_features.py', 'rb') as file:
+        with open('_1_language_features.py', 'rb') as file:
             print(calculate_md5(file))
         # File is automatically closed after with block
         
@@ -131,8 +131,8 @@ def verbose_truthy_example():
         print("List is empty")
 
 
+examples = [string_formatting, with_statement, list_iterate_examples, dict_iterate_examples, truthiness_examples, verbose_truthy_example]
 def main():
-    examples = [string_formatting, with_statement, list_iterate_examples, dict_iterate_examples, truthiness_examples, verbose_truthy_example]
     for example in examples:
         console.clear()
         print(create_source_output_table(example, console))

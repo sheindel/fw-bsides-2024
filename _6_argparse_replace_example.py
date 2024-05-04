@@ -42,11 +42,6 @@ def typer_example():
 
 
 def main():
-    #typer_example()
-    # argprase_square()
-    # return
-
-
     import os
     import inspect
     from rich import print

@@ -64,12 +64,11 @@ def ex2():
     # This is typed as unknown because of the mixed values types in the dictionary
     any_value_from_the_dictionary = dictionary["Hello"]
 
-
+examples = [
+    ex1, 
+    # ex2
+]
 def main():
-    examples = [
-        ex1, 
-        # ex2
-    ]
     for example in examples:
         console.clear()
         print(create_source_output_table(example, console))
@@ -77,7 +76,6 @@ def main():
         is_not_last_item = example != examples[-1]
         if is_not_last_item:
             input("Press Enter to continue to the next example...")
-
 
 if __name__ == '__main__':
     main()
