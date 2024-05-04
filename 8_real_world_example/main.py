@@ -1,3 +1,5 @@
+# Thanks to l15t3nr (Brody) on fw bsides Discord for the script!
+
 # Tasks 1: Retrieve a list of all device that have been active over the last 30 days by customer
 
 from datetime import datetime, timedelta

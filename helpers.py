@@ -3,7 +3,6 @@ import os
 from inspect import getsource
 from typing import Callable
 
-from rich import get_console
 from rich.console import Console
 from rich.table import Table
 from rich.syntax import Syntax

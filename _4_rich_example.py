@@ -86,7 +86,7 @@ def example_traceback():
 
 examples = [
     example_simple_console, 
-    example_rich_advanced_table, 
+    # example_rich_advanced_table, 
     example_inspect_basic, 
     example_inspect_methods, 
     example_traceback

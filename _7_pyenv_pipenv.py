@@ -6,6 +6,8 @@ from helpers import create_source_output_table
 console = Console()
 print = console.print
 
+version_strings = ["3.7.10", "3.9.5", "3.8.10"]
+
 def add_standard_environment(branch: Tree, version: str, abbreviate: bool = False):
     version = ".".join(version.split(".")[:2])
     binaries = branch.add("[blue]bin[/blue] (executables)")
@@ -33,7 +35,7 @@ def python_standard_environment():
 def pyenv_version_management():
     tree = Tree("pyenv version management")
     versions = tree.add("versions")
-    version_strings = ["3.9.5", "3.8.10", "3.7.10"]
+    
     for version in version_strings:
         version_tree = versions.add(version)
         add_standard_environment(version_tree, version)
