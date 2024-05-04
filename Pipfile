@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 rich = "*"
 typer = "*"
-qrcode = "*"
 dateparser = "*"
 crowdstrike-falconpy = "*"
 
