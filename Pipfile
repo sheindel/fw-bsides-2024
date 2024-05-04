@@ -7,8 +7,8 @@ name = "pypi"
 rich = "*"
 typer = "*"
 qrcode = "*"
-pyfiglet = "*"
 dateparser = "*"
+crowdstrike-falconpy = "*"
 
 [dev-packages]
 

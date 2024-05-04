@@ -1,5 +1,4 @@
 import random
-from rich import print
 from rich.tree import Tree
 from rich.console import Console
 from helpers import create_source_output_table
@@ -7,19 +6,21 @@ from helpers import create_source_output_table
 console = Console()
 print = console.print
 
-def add_standard_environment(branch: Tree, version: str):
+def add_standard_environment(branch: Tree, version: str, abbreviate: bool = False):
     version = ".".join(version.split(".")[:2])
     binaries = branch.add("[blue]bin[/blue] (executables)")
-    binaries.add(f"[cyan]python -> python{version}[/cyan] (python.exe)")
-    binaries.add(f"[cyan]python3 -> python{version}[/cyan] (python3.exe)")
-    binaries.add(f"[green]python{version}[/green] (python{version}.exe)")
-    binaries.add("[green]pip[/green] (pip.exe)")
-    binaries.add("...binaries bundled installed related by pip packages")
-
     lib = branch.add("[blue]lib[/blue] (standard library, etc.)")
-    lib_version = lib.add(f'[blue]python{version}[/blue]')
-    site_packages = lib_version.add("[blue]site-packages[/blue]")
-    site_packages.add("...everything you install with [green]pip[/green]")
+    site_packages = None
+    if not abbreviate:
+        binaries.add(f"[cyan]python -> python{version}[/cyan] (python.exe)")
+        binaries.add(f"[cyan]python3 -> python{version}[/cyan] (python3.exe)")
+        binaries.add(f"[green]python{version}[/green] (python{version}.exe)")
+        binaries.add("[green]pip[/green] (pip.exe)")
+        binaries.add("...binaries bundled installed related by pip packages")
+
+        lib_version = lib.add(f'[blue]python{version}[/blue]')
+        site_packages = lib_version.add("[blue]site-packages[/blue]")
+        site_packages.add("...everything you install with [green]pip[/green]")
     
     return [binaries, lib, site_packages]
 
@@ -46,7 +47,9 @@ def pyenv_version_management():
 def pipenv_virtualenv():
     tree = Tree("pipenv virtualenv")
     virtualenv = tree.add("virtualenv")
-    add_standard_environment(virtualenv, "3.9.5")
+    [binaries, _, site_packages] = add_standard_environment(virtualenv, "3.9.5")
+    binaries.add("[green]pipenv[/green] (pipenv.exe)")
+    site_packages.add("[blue]pipenv[/blue]")
 
     print(tree)
 
@@ -57,11 +60,12 @@ def pyenv_pipenv_version_management():
     version_strings = ["3.9.5", "3.8.10", "3.7.10"]
     for version in version_strings:
         version_tree = versions.add(version)
-        add_standard_environment(version_tree, version)
+        add_standard_environment(version_tree, version, abbreviate=True)
 
     global_versions = tree.add("system versions")
-    version_tree = global_versions.add("3.9.5")
-    add_standard_environment(version_tree, "3.9.5")
+    version = random.choice(version_strings)
+    version_tree = global_versions.add(version)
+    add_standard_environment(version_tree, version, abbreviate=True)
 
 
     projects = tree.add("projects")
@@ -70,7 +74,7 @@ def pyenv_pipenv_version_management():
         project_tree = projects.add(project)
         version = random.choice(version_strings)
         version_tree = project_tree.add(version)
-        add_standard_environment(version_tree, version)
+        add_standard_environment(version_tree, version, abbreviate=True)
 
     print(tree)
 
@@ -84,7 +88,7 @@ examples = [
 if __name__ == "__main__":
     for example in examples:
         console.clear()
-        print(create_source_output_table(example, console))
+        print(create_source_output_table(example, console, print_source=False))
 
         is_not_last_item = example != examples[-1]
         if is_not_last_item:

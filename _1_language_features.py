@@ -1,9 +1,9 @@
-import os
 import hashlib
 import io
 from rich.console import Console
 
-from helpers import create_source_output_table, get_function_source
+
+from helpers import create_source_output_table
 console = Console()
 print = console.print
 
@@ -11,15 +11,15 @@ def string_formatting():
     world_string = "world"
 
     # too many ways to format strings
-    print("Hello, %s!" % world_string)
-    print("Hello, {0}!".format(world_string))
+    print("Hello, %s!\n" % world_string)
+    print("Hello, {0}!\n".format(world_string))
 
     # better, but kind of long...
     # and uneeded characters
-    print("Hello, " + world_string + "!")
+    print("Hello, " + world_string + "!\n")
 
     # f-strings are the best, 3.6 forward
-    print(f"Hello, {world_string}!")
+    print(f"Hello, {world_string}!\n")
 
     print(f"""Hello, "{world_string}"!
           Multiple lines!

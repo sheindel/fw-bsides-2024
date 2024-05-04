@@ -1,5 +1,4 @@
 from rich.console import Console
-
 from helpers import create_source_output_table
 
 console = Console()
