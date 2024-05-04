@@ -33,7 +33,7 @@ def pyenv_version_management():
         version_tree = versions.add(version)
         add_standard_environment(version_tree, version)
 
-    global_versions = tree.add("global versions")
+    global_versions = tree.add("system versions")
     global_version = global_versions.add("3.9.5")
     add_standard_environment(global_version, "3.9.5")
 
@@ -55,7 +55,7 @@ def pyenv_pipenv_version_management():
         version_tree = versions.add(version)
         add_standard_environment(version_tree, version)
 
-    global_versions = tree.add("global versions")
+    global_versions = tree.add("system versions")
     version_tree = global_versions.add("3.9.5")
     add_standard_environment(version_tree, "3.9.5")
 
@@ -74,10 +74,11 @@ def pyenv_pipenv_version_management():
 if __name__ == "__main__":
     from rich.panel import Panel
     from rich.table import Table
+    from rich.syntax import Syntax
     from rich.color import ANSI_COLOR_NAMES
     examples = [python_standard_environment, pyenv_version_management, pipenv_virtualenv, pyenv_pipenv_version_management]
     for example in examples:
-        lines = inspect.getsource(example)
+        lines = Syntax(inspect.getsource(example), lexer='python')
         print("\n")
         table = Table(title=example.__name__.replace("_", " "))
         table.add_column("Source")

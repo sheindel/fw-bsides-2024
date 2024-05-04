@@ -19,10 +19,6 @@ def string_formatting():
     # f-strings are the best, 3.6 forward
     print(f"Hello, {world_string}!")
 
-    print(f"Hello, '{world_string}'!")
-    print(f'Hello, "{world_string}"!')
-    print(f"Hello, \"{world_string}\"!")
-
     print(f"""Hello, "{world_string}"!
           Multiple lines!
           Very easily (but its indented?)
@@ -30,7 +26,7 @@ def string_formatting():
 
     print(f"Hello, {world_string}!\n"
           f"Multiple lines!\n"
-          f"Very easily (no indents!)"
+          "Very easily (no indents!)"
     )
 
 
@@ -60,8 +56,8 @@ def list_iterate_examples():
     
     # Okay
     print("Okay: Range based iteration")
-    for i in range(len(my_int_list)):
-        print(my_int_list[i])
+    for index in range(len(my_int_list)):
+        print(my_int_list[index])
     
     # Better
     print("Better: Object based iteration")
@@ -70,19 +66,19 @@ def list_iterate_examples():
     
     # Other scenarios
     print("Advanced: Enumerated")
-    for i,item in enumerate(my_int_list):
-        print(f'{item} at index {i}')
+    for index,item in enumerate(my_int_list):
+        print(f'{item} at index {index}')
     
     print("Advanced: Reversed")
     for item in reversed(my_int_list):
         print(item)
-
-    print("Advanced: Slicing, every other item")
-    for item in my_int_list[::2]:
-        print(item)
     
     print("Advanced: Slicing, all items EXCEPT the first")
     for item in my_int_list[1:]:
+        print(item)
+
+    print("Advanced: Slicing, every other item")
+    for item in my_int_list[::2]:
         print(item)
 
     print("Advanced: Slice based reversed")
@@ -122,13 +118,23 @@ def truthiness_examples():
         print(f"Is {item} truthy? {bool(item)}")
 
 
+def verbose_truthy_example():
+    my_list = [1, 2, 3]
+    if my_list:
+        print("List is empty")
+    
+    my_list_is_empty = bool(my_list)
+    my_list_is_empty = not my_list
+    if my_list_is_empty:
+        print("List is empty")
+
+
 def main():
-    import os
     import inspect
     from rich.table import Table
     from rich.syntax import Syntax
     from rich.text import Text
-    examples = [string_formatting, with_statement, list_iterate_examples, dict_iterate_examples, truthiness_examples]
+    examples = [string_formatting, with_statement, list_iterate_examples, dict_iterate_examples, truthiness_examples, verbose_truthy_example]
     for example in examples:
         with console.capture() as capture:
             example()

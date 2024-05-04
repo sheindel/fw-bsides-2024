@@ -1,4 +1,3 @@
-import dateparser
 from inspect import getsource
 
 from rich.console import Console
@@ -8,9 +7,12 @@ def print(*args, **kwargs):
 
 
 def dateparser_example():
+    import dateparser
     def parse_test(date_str: str, settings=None):
-        print(f"{date_str.ljust(12, ' ')} {dateparser.parse(date_str, settings=settings)}")
-
+        formatted_date_str = date_str.ljust(12, ' ')
+        parsed_data = dateparser.parse(date_str, settings=settings)
+        print(f"{formatted_date_str} {parsed_data}")
+        
     parse_test('2024-05-04')
     parse_test('5/4/2024')
     parse_test('05-04-2024')

@@ -11,7 +11,7 @@ def example_simple_console():
     print("Hello, 99 worlds!")
     print({"Hello": "world!", "Number": 99})
     print(["Hello", "world!", 99])
-    print(["Lots of items"]*10)
+    print(["Lots of items"]*20)
 
 def example_rich_advanced_table():
     from rich.table import Table
@@ -43,13 +43,23 @@ def example_rich_advanced_tree():
     print(tree)
 
 
-def example_inspect():
+def example_inspect_basic():
     from rich import inspect
     my_list = [1, 2, 3, 4]
     print('inspect(my_list)')
     inspect(my_list, console=console)
+
+
+def example_inspect_methods():
+    from rich import inspect
+    my_list = [1, 2, 3, 4]
     print('inspect(my_list, methods=True)')
     inspect(my_list, console=console, methods=True)
+
+
+def example_inspect_all():
+    from rich import inspect
+    my_list = [1, 2, 3, 4]
     print('inspect(my_list, all=True)')
     inspect(my_list, console=console, all=True)
 
@@ -76,11 +86,17 @@ def example_traceback():
 def main():
     import inspect
     from rich.table import Table
-    from rich.console import Console
     from rich.text import Text
     from rich.syntax import Syntax
     import os
-    examples = [example_simple_console, example_rich_advanced_table, example_inspect, example_traceback]
+    examples = [
+        example_simple_console, 
+        example_rich_advanced_table, 
+        example_inspect_basic, 
+        example_inspect_methods, 
+        # example_inspect_all, 
+        example_traceback
+    ]
     for example in examples:
         console.clear()
         lines = inspect.getsource(example)

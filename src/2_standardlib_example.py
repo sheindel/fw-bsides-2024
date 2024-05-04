@@ -1,4 +1,3 @@
-import os
 from rich.console import Console
 from inspect import getsource
 from rich.table import Table
@@ -10,6 +9,7 @@ print = console.print
 
 
 def path_examples():
+    import os
     def path_functions(path: str, file: str):
         print(os.path.join(path, file))
     
@@ -23,6 +23,7 @@ def path_examples():
 
 
 def linesep_examples():
+    import os
     print("This is a line")
     print("This is another line")
     print(f"Line 1 {os.linesep}Line 2 {os.linesep}Line 3")
@@ -50,6 +51,7 @@ def glob_example():
     print(glob.glob(f"*{search}*.py"))
 
 def main():
+    import os
     examples = [path_examples, linesep_examples, glob_example, random_examples]
     for example in examples:
         console.clear()
@@ -69,12 +71,6 @@ def main():
         # if not last item, wait for next
         if example != examples[-1]:
             input("Press Enter to continue to the next example...")
-
-    # for example in examples:
-    #     print(f"Running example: {example.__name__}")
-    #     example()
-    #     print("\n")
-    #     input("Press Enter to continue to the next example...")
 
 
 if __name__ == '__main__':
