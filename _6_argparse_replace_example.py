@@ -76,8 +76,6 @@ def typer_advanced():
     app()
 
 def main():
-    import os
-    import inspect
     from rich.console import Console
     from rich.syntax import Syntax
     from rich.table import Table

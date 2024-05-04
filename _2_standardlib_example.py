@@ -47,6 +47,7 @@ def glob_example():
     search = "parse"
     print(glob.glob(f"*{search}*.py"))
 
+
 examples = [path_examples, linesep_examples, glob_example, random_examples]
 def main():
     for example in examples:
